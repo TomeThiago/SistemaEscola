@@ -1,5 +1,8 @@
---Criação de uma schema
-CREATE SCHEMA geral;
+--Se não existir irá criar o banco de dados
+CREATE DATABASE escola;
+
+--Se não existir irá criar a schema
+CREATE SCHEMA IF NOT EXISTS geral;
 
 --Se não existir irá criar a tabela curso na schema geral
 CREATE TABLE IF NOT EXISTS geral.curso(
@@ -18,10 +21,10 @@ CREATE TABLE IF NOT EXISTS geral.aluno(
 
 --Se não existir irá criar a tabela curso_aluno na schema geral
 CREATE TABLE IF NOT EXISTS geral.curso_aluno(
-  codigo INT NOT NULL,
+  codigo SERIAL NOT NULL,
   codigo_aluno INTEGER NOT NULL,
   codigo_curso INTEGER NOT NULL,
   FOREIGN KEY (codigo_aluno) REFERENCES geral.aluno(codigo),
   FOREIGN KEY (codigo_curso) REFERENCES geral.curso(codigo),
-  PRIMARY KEY (codigo_aluno,codigo_curso,codigo) 
+  PRIMARY KEY (codigo)
 );

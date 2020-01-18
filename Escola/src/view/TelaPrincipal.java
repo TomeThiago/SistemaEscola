@@ -98,10 +98,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
-        ConsultaAluno telaConsultaAluno = new ConsultaAluno();
-        jDesktopPane1.add(telaConsultaAluno);
-        telaConsultaAluno.setVisible(true);
-        telaConsultaAluno.setPosicao();
+        ConsultaMatricula telaConsultaMatricula = new ConsultaMatricula();
+        jDesktopPane1.add(telaConsultaMatricula);
+        telaConsultaMatricula.setVisible(true);
+        telaConsultaMatricula.setPosicao();
     }//GEN-LAST:event_jMenu3MouseClicked
 
     public static void main(String args[]) {

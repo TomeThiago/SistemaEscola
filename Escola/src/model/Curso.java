@@ -30,4 +30,9 @@ public class Curso {
         this.ementa = ementa;
     }
     
+    @Override
+    public String toString() {
+        return getDescricao();
+    }
+    
 }
