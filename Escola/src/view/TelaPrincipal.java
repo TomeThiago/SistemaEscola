@@ -14,10 +14,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
-        jMenu1 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema Administrativo");
@@ -40,25 +39,32 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
 
         jMenu3.setText("Matrícula");
+        jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu3MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu3);
 
-        jMenu1.setText("Alunos");
+        jMenu4.setText("Cadastros");
 
-        jMenuItem1.setText("Consulta");
+        jMenuItem1.setText("Alunos");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu4.add(jMenuItem1);
 
-        jMenuBar1.add(jMenu1);
+        jMenuItem2.setText("Cursos");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem2);
 
-        jMenu2.setText("Cursos");
-        jMenuBar1.add(jMenu2);
-
-        jMenu5.setText("Sair");
-        jMenuBar1.add(jMenu5);
+        jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
 
@@ -83,6 +89,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
         telaConsultaAluno.setVisible(true);
         telaConsultaAluno.setPosicao();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        ConsultaCurso telaConsultaCurso = new ConsultaCurso();
+        jDesktopPane1.add(telaConsultaCurso);
+        telaConsultaCurso.setVisible(true);
+        telaConsultaCurso.setPosicao();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
+        ConsultaAluno telaConsultaAluno = new ConsultaAluno();
+        jDesktopPane1.add(telaConsultaAluno);
+        telaConsultaAluno.setVisible(true);
+        telaConsultaAluno.setPosicao();
+    }//GEN-LAST:event_jMenu3MouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -118,11 +138,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     // End of variables declaration//GEN-END:variables
 }

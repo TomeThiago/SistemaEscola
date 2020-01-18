@@ -144,6 +144,11 @@ public class ConsultaAluno extends javax.swing.JInternalFrame {
                 jTable1MouseClicked(evt);
             }
         });
+        jTable1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTable1KeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setMinWidth(50);
@@ -198,13 +203,17 @@ public class ConsultaAluno extends javax.swing.JInternalFrame {
         }
         limpaCampos();
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+    
+    public void preencheCampos(){
         int indice = jTable1.getSelectedRow();
         if(indice != -1){
             txtCodigo.setText(jTable1.getValueAt(indice, 0).toString());
             txtNome.setText(jTable1.getValueAt(indice, 1).toString());
         }
+    }
+    
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        preencheCampos();
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -222,6 +231,10 @@ public class ConsultaAluno extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Selecione um aluno antes de atualizar!");
         }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jTable1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyReleased
+        preencheCampos();
+    }//GEN-LAST:event_jTable1KeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

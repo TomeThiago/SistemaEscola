@@ -25,7 +25,6 @@ public class Conexao {
     }
 
     public static void closeConnection(Connection con) {
-
         try {
             if (con != null) {
                 con.close();
@@ -33,11 +32,9 @@ public class Conexao {
         } catch (SQLException ex) {
             Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
     
-    public static void closeConnection(Connection con, PreparedStatement stmt) {
-        
+    public static void closeConnection(Connection con, PreparedStatement stmt) { 
         closeConnection(con);
         try {
             if (stmt != null) {
@@ -46,11 +43,9 @@ public class Conexao {
         } catch (SQLException ex) {
             Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
     
-    public static void closeConnection(Connection con, PreparedStatement stmt, ResultSet res) {
-        
+    public static void closeConnection(Connection con, PreparedStatement stmt, ResultSet res) { 
         closeConnection(con, stmt);
         try {
             if (res != null) {
@@ -59,6 +54,5 @@ public class Conexao {
         } catch (SQLException ex) {
             Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 }

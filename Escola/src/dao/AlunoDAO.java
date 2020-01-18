@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Aluno;
 
@@ -35,7 +33,7 @@ public class AlunoDAO {
         PreparedStatement stmt = null;
        
         try {
-                stmt = con.prepareStatement("UPDATE geral.aluno set nome = ? WHERE codigo = ?");
+                stmt = con.prepareStatement("UPDATE geral.aluno SET nome = ? WHERE codigo = ?");
             stmt.setString(1, aluno.getNome());
             stmt.setInt(2, aluno.getCodigo());
             stmt.executeUpdate();
