@@ -1,8 +1,11 @@
 package view;
 
+import static dao.Conexao.createDatabase;
+
 public class TelaPrincipal extends javax.swing.JFrame {
 
     public TelaPrincipal() {
+        createDatabase();
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
     }
@@ -82,7 +85,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         ConsultaAluno telaConsultaAluno = new ConsultaAluno();
         jDesktopPane1.add(telaConsultaAluno);

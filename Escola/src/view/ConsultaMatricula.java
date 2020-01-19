@@ -4,6 +4,7 @@ import dao.AlunoDAO;
 import dao.CursoAlunoDAO;
 import dao.CursoDAO;
 import java.awt.Dimension;
+import static java.awt.Toolkit.getDefaultToolkit;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Aluno;
@@ -29,6 +30,7 @@ public class ConsultaMatricula extends javax.swing.JInternalFrame {
         }
         //
         
+        limpaCampos();
         readJTable();
     }
     
@@ -218,8 +220,21 @@ public class ConsultaMatricula extends javax.swing.JInternalFrame {
         int indice = jTable1.getSelectedRow();
         if(indice != -1){
             txtCodigo.setText(jTable1.getValueAt(indice, 0).toString());
-            //txtAluno.setText(jTable1.getValueAt(indice, 1).toString());
-            //txtCurso.setText(jTable1.getValueAt(indice, 3).toString());
+       
+            for (int i = 0; i < cbAlunos.getItemCount(); i++){
+                cbAlunos.setSelectedIndex(i);  
+                if(cbAlunos.getSelectedItem().toString().equals(jTable1.getValueAt(indice, 2).toString())){
+                    break;
+                }
+            }
+            
+            for (int i = 0; i < cbCursos.getItemCount(); i++){
+                cbCursos.setSelectedIndex(i);
+                if(cbCursos.getSelectedItem().toString().equals(jTable1.getValueAt(indice, 4).toString())){
+                    break;
+                }
+            }
+            
         }
     }
     
@@ -271,18 +286,27 @@ public class ConsultaMatricula extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
+        
+        if ((cbAlunos.getSelectedIndex() != -1) && (cbCursos.getSelectedIndex() != -1)){
+            CursoAluno matricula = new CursoAluno();
+            CursoAlunoDAO dao = new CursoAlunoDAO();
 
-        CursoAluno matricula = new CursoAluno();
-        CursoAlunoDAO dao = new CursoAlunoDAO();
-        
-        Aluno aluno = (Aluno) cbAlunos.getSelectedItem();
-        Curso curso = (Curso) cbCursos.getSelectedItem();
-        
-        matricula.setCodigo_aluno(aluno.getCodigo());
-        matricula.setCodigo_curso(curso.getCodigo());
-        dao.create(matricula);
-        readJTable();
-        limpaCampos();
+            Aluno aluno = (Aluno) cbAlunos.getSelectedItem();
+            Curso curso = (Curso) cbCursos.getSelectedItem();
+
+            matricula.setCodigo_aluno(aluno.getCodigo());
+            matricula.setCodigo_curso(curso.getCodigo());
+            dao.create(matricula);
+            readJTable();
+            limpaCampos();
+        }else{
+            getDefaultToolkit().beep();
+            if (cbAlunos.getSelectedIndex() == -1){
+                JOptionPane.showMessageDialog(null, "Selecione um aluno para fazer a matrícula!");
+            }else if (cbCursos.getSelectedIndex() == -1){
+                JOptionPane.showMessageDialog(null, "Selecione um curso para fazer a matrícula!");
+            }
+        }
     }//GEN-LAST:event_btnIncluirActionPerformed
 
 
