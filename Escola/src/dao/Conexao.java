@@ -5,41 +5,73 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class Conexao {
 
-    private static final String DRIVER = "org.postgresql.Driver";
+    /*private static final String DRIVER = "org.postgresql.Driver";
     private static final String PORTA = "5432";
     private static final String BD = "escola";
     private static final String URL = "jdbc:postgresql://localhost:"+PORTA+"/"+BD;
     private static final String USER = "postgres";
-    private static final String PASS = "bakuman10";
+    private static final String PASS = "bakuman10";*/
+    
+    private static final String DRIVER = "org.postgresql.Driver";
+    private static String HOST;
+    private static String PORTA;
+    private static final String BD = "escola";
+    private static String URL;
+    private static String USER;
+    private static String PASS;
+
+    public static String getHOST() {
+        return HOST;
+    }
+
+    public static void setHOST(String HOST) {
+        Conexao.HOST = HOST;
+    }
+
+    public static String getPORTA() {
+        return PORTA;
+    }
+
+    public static void setPORTA(String PORTA) {
+        Conexao.PORTA = PORTA;
+    }
+
+    public static String getURL() {
+        return URL;
+    }
+
+    public static void setURL(){
+         Conexao.URL = "jdbc:postgresql://"+Conexao.HOST+":"+Conexao.PORTA+"/"+BD;
+    } 
+
+    public static String getUSER() {
+        return USER;
+    }
+
+    public static void setUSER(String USER) {
+        Conexao.USER = USER;
+    }
+
+    public static String getPASS() {
+        return PASS;
+    }
+
+    public static void setPASS(String PASS) {
+        Conexao.PASS = PASS;
+    }
     
     public static void createDatabase(){
-        //SELECT * FROM pg_database WHERE datname = 'maniasmulher'"
-        
-       /* try {
-            try {
-                Class.forName(DRIVER);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/","postgres","bakuman10");
-            PreparedStatement stmt = null;
-            stmt = con.prepareStatement("CREATE DATABASE escola");
-            stmt.executeUpdate();
-   
-        } catch (SQLException err){
-            
-        }*/
-        
+      
+       
         try {
             Class.forName(DRIVER);
-            Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/","postgres","bakuman10");
+            Connection con = DriverManager.getConnection("jdbc:postgresql://"+HOST+":"+PORTA+"/",USER,PASS);
             PreparedStatement stmt = null;
             stmt = con.prepareStatement("CREATE DATABASE escola");
             try {
@@ -132,6 +164,16 @@ public class Conexao {
         }
     }
 
+    public static boolean getTestConnection() {
+        try {
+            Class.forName(DRIVER);
+            DriverManager.getConnection(URL, USER, PASS);
+            return true;
+        } catch (ClassNotFoundException | SQLException ex) {
+            throw new RuntimeException("Erro na conexão com o banco de dados: ", ex);
+        }
+    }
+    
     public static Connection getConnection() {
         try {
             Class.forName(DRIVER);
