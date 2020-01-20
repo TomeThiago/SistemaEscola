@@ -47,7 +47,7 @@ public class Conexao {
     }
 
     public static void setURL(){
-         Conexao.URL = "jdbc:postgresql://"+Conexao.HOST+":"+Conexao.PORTA+"/"+BD;
+         Conexao.URL = "jdbc:postgresql://"+Conexao.HOST+":"+Conexao.PORTA+"/";
     } 
 
     public static String getUSER() {
