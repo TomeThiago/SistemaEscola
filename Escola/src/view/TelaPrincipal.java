@@ -1,13 +1,21 @@
 package view;
 
 import static dao.Conexao.createDatabase;
+import javax.swing.JFrame;
 
 public class TelaPrincipal extends javax.swing.JFrame {
 
     public TelaPrincipal() {
         createDatabase();
+        
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
+    }
+    
+    private JFrame telaConfig;
+    
+    public void fechaConfig(TelaConfiguracao telaConfig){
+        this.telaConfig = telaConfig;
     }
 
     @SuppressWarnings("unchecked")
@@ -23,6 +31,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema Administrativo");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jDesktopPane1.setBackground(new java.awt.Color(240, 240, 240));
         jDesktopPane1.setForeground(new java.awt.Color(240, 240, 240));
@@ -110,6 +123,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         telaConsultaMatricula.setVisible(true);
         telaConsultaMatricula.setPosicao();
     }//GEN-LAST:event_jMenu3MouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        telaConfig.dispose();
+        
+    }//GEN-LAST:event_formWindowOpened
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

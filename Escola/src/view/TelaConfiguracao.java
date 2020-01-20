@@ -17,9 +17,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
     public TelaConfiguracao() {
         if(buscaConfiguracao()){   
             this.setVisible(false);
-            dispose();
-        }else{
-            
+        }else{    
             initComponents();
         }
     }
@@ -38,15 +36,21 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         btnTesta = new javax.swing.JButton();
         txtUser = new javax.swing.JTextField();
         txtPort = new javax.swing.JTextField();
-        txtSenha = new javax.swing.JTextField();
         btnSalvar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        txtSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jPanel1FocusLost(evt);
+            }
+        });
 
         txtHost.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,12 +74,6 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         txtPort.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPortActionPerformed(evt);
-            }
-        });
-
-        txtSenha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSenhaActionPerformed(evt);
             }
         });
 
@@ -124,11 +122,11 @@ public class TelaConfiguracao extends javax.swing.JFrame {
                                 .addComponent(jLabel6))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtUser)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(txtHost, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(0, 0, Short.MAX_VALUE))
-                                .addComponent(txtUser)
-                                .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(txtSenha))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addComponent(jLabel1)))
@@ -157,7 +155,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnTesta)
                     .addComponent(btnSalvar))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -213,6 +211,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
             if(Conexao.getTestConnection()){
                 btnSalvar.setEnabled(true);
             }else{
+                btnSalvar.setEnabled(false);
                 JOptionPane.showMessageDialog(null, "Banco de dados não conectado!\nPor favor verifique os dados.");
             } 
         }   
@@ -225,10 +224,6 @@ public class TelaConfiguracao extends javax.swing.JFrame {
     private void txtPortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPortActionPerformed
 
     }//GEN-LAST:event_txtPortActionPerformed
-
-    private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
-
-    }//GEN-LAST:event_txtSenhaActionPerformed
     
     private void gravaConfiguracao(){
         FileWriter writeFile = null;
@@ -278,6 +273,8 @@ public class TelaConfiguracao extends javax.swing.JFrame {
     private void abreMain(){
         TelaPrincipal telaPrincipal = new TelaPrincipal();
         telaPrincipal.setVisible(true);
+        telaPrincipal.fechaConfig(this);
+        this.setVisible(false);
     }
     
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
@@ -286,6 +283,10 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         abreMain();
         dispose();
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void jPanel1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel1FocusLost
+       
+    }//GEN-LAST:event_jPanel1FocusLost
 
     /**
      * @param args the command line arguments
@@ -317,7 +318,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {          
-                new TelaConfiguracao().setVisible(true);     
+                new TelaConfiguracao().setVisible(true);  
             }
         });
     }
@@ -333,7 +334,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
     public javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtHost;
     private javax.swing.JTextField txtPort;
-    private javax.swing.JTextField txtSenha;
+    private javax.swing.JPasswordField txtSenha;
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 }
