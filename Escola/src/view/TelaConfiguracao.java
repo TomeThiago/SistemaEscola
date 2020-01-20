@@ -1,26 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import dao.Conexao;
-import java.awt.Dimension;
 import static java.awt.Toolkit.getDefaultToolkit;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
-/**
- *
- * @author Kill3rmidnight
- */
 public class TelaConfiguracao extends javax.swing.JFrame {
-
-    /**
-     * Creates new form TelaConfiguracao
-     */
+     
     public TelaConfiguracao() {
-        initComponents();
+        if(buscaConfiguracao()){   
+            this.setVisible(false);
+            dispose();
+        }else{
+            
+            initComponents();
+        }
     }
 
     /**
@@ -211,7 +212,9 @@ public class TelaConfiguracao extends javax.swing.JFrame {
 
             if(Conexao.getTestConnection()){
                 btnSalvar.setEnabled(true);
-            }
+            }else{
+                JOptionPane.showMessageDialog(null, "Banco de dados não conectado!\nPor favor verifique os dados.");
+            } 
         }   
     }//GEN-LAST:event_btnTestaActionPerformed
 
@@ -226,13 +229,61 @@ public class TelaConfiguracao extends javax.swing.JFrame {
     private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
 
     }//GEN-LAST:event_txtSenhaActionPerformed
-
-    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        VerificaCampos();
+    
+    private void gravaConfiguracao(){
+        FileWriter writeFile = null;
+        JSONObject objetoJson = new JSONObject();
+        objetoJson.put("host",txtHost.getText());
+        objetoJson.put("porta",txtPort.getText());
+        objetoJson.put("usuario",txtUser.getText());
+        objetoJson.put("senha",txtSenha.getText());
         
+        try {
+            writeFile = new FileWriter("config.json");
+            writeFile.write(objetoJson.toJSONString());
+            writeFile.close();
+        }catch(IOException ex){
+            JOptionPane.showMessageDialog(null, "O arquivo 'config.json' não foi salvo com sucesso!");
+        }    
+    }
+    
+    public boolean buscaConfiguracao() {
+        try {
+           
+            Object obj = new JSONParser().parse(new FileReader("config.json")); 
+            JSONObject jsonObject = (JSONObject) obj;
+             
+            //Salva nas configurações os dados retirados do arquivo           
+            Conexao.setHOST((String) jsonObject.get("host"));
+            Conexao.setPORTA((String) jsonObject.get("porta"));
+            Conexao.setUSER((String) jsonObject.get("usuario"));
+            Conexao.setPASS((String) jsonObject.get("senha"));
+            Conexao.setURL();
+            
+            if(Conexao.getTestConnection()){
+                abreMain();
+                return true;
+            }
+            
+        }catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Banco de dados não configurado!\nPor favor configure antes de usar a aplicação.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (org.json.simple.parser.ParseException ex) {
+            Logger.getLogger(TelaConfiguracao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    private void abreMain(){
         TelaPrincipal telaPrincipal = new TelaPrincipal();
         telaPrincipal.setVisible(true);
-        
+    }
+    
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        VerificaCampos();
+        gravaConfiguracao();
+        abreMain();
         dispose();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -265,8 +316,8 @@ public class TelaConfiguracao extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaConfiguracao().setVisible(true);
+            public void run() {          
+                new TelaConfiguracao().setVisible(true);     
             }
         });
     }
@@ -279,7 +330,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
+    public javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtHost;
     private javax.swing.JTextField txtPort;
     private javax.swing.JTextField txtSenha;
